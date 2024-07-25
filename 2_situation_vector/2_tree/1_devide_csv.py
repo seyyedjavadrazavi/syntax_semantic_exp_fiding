@@ -34,9 +34,6 @@ l6 = [itm for itm in question_tag if len(itm) == 6]
 l7 = [itm for itm in question_tag if len(itm) == 7]
 l8 = [itm for itm in question_tag if len(itm) == 8]
 
-if len(l7) > 0 or len(l8) > 0:
-    print("lllllllllllll77777777 or lllllllll888888")
-
 df_tgs_len1 = pd.DataFrame(l2, columns=['ques_id', 'tag1'])
 df_tgs_len1.to_csv('../../data/bioinformatics/bioinformatics_tags_observation_len1.csv')
 

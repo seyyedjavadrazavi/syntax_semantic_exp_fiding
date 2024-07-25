@@ -32,9 +32,9 @@ In the `2_tree` folder, we sort question tags based on their number and compute 
 
 First, we select one tag from the input question and compute the five most similar tags using the W2V model. Questions with at least one of these tags are selected. This process is recursively repeated for all tags of the new question until all tags are considered or the number of candidate questions is sufficiently reduced. The Apriori algorithm is employed to select new candidates at each step.
 
-##### 3.2 SBERT -> 4_sbert_stack_overflow folder
+##### 3.2 SBERT -> 4_bert_score folder
 
-In the `4_sbert_stack_overflow` folder, we use the BERT Score to calculate the similarity between question bodies. Due to the time-consuming nature of this process, we generate a shortlist of candidates by averaging the `tree` and `graph` candidates. The BERT Score is then calculated for candidates with higher scores.
+In the `4_bert_score` folder, we use the BERT Score to calculate the similarity between question bodies. Due to the time-consuming nature of this process, we generate a shortlist of candidates by averaging the `tree` and `graph` candidates. The BERT Score is then calculated for candidates with higher scores.
 
 #### 5. Union
 
