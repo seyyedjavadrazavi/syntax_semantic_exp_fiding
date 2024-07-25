@@ -11,5 +11,6 @@ We used the Stack Exchange dataset. You can download it from [archive.org](https
 To convert XML files to CSVs, firstly, you should run all the Python files in the `1_prepration` folder. So, you should run the Python files in the `Comments`, `Posts`, `Tags`, `User`, and `Worker` directories. Paths are relative, and all files will be stored in the `data` directory. You may change the name of the directory for each different dataset in the Python codes.
 
 ## 2. situation_vector
-This folder is responsible for computing the Syntax and Semantic similarities between texts. You 
+This folder is responsible for computing the Syntax and Semantic similarities between texts. In the `W2V` folder, we first compute the permutation of tags, to have the all possible sequence of questions' tags, in `1_seprate_tags`, then train and create word2vec vectors in `2_create_word2vec`. 
 
+In the `2_tree` folder, we sort the questions' tags separately based on the number of tags, then, compute the Syntax similarity between questions via the `tree`.   
