@@ -67,5 +67,7 @@ In this directory, the workers' profiles including expertise in domain and reput
 Here, the input data of the ML model for training, validating, and testing purposes are generated. Each row includes the worker, requester, and task information.
 
 ### 4. MLP
+In this directory, we use the Multi-Layer Perceptron (MLP) machine learning model. After the ML model produces the candidates, we use the Bert Score model implemented in `b_s.py` to rank the candidates. First, you need to update the dataset name in the `b_s.py` file, then run the `1_ML_model.py`. 
 
-Continue....
+## Note
+For any questions, please feel free to open an issue or email javad.b.razavi@gmail.com.
