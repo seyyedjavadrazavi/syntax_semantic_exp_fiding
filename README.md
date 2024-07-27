@@ -26,21 +26,21 @@ In the `W2V` folder, we first compute permutations of tags to create all possibl
 
 In the `2_tree` folder, we sort question tags based on their number and compute syntax similarity using a tree structure. Tags are considered children, siblings, or parents based on their relationships to the input question, as detailed in our paper.
 
-#### 3. Semantic Similarity
+#### 2.3. Semantic Similarity
 
-##### 3.1 Graph
+##### 2.3.1 Graph
 
 First, we select one tag from the input question and compute the five most similar tags using the W2V model. Questions with at least one of these tags are selected. This process is recursively repeated for all tags of the new question until all tags are considered or the number of candidate questions is sufficiently reduced. The Apriori algorithm is employed to select new candidates at each step.
 
-##### 3.2 SBERT -> 4_bert_score folder
+##### 2.3.2 SBERT -> 4_bert_score folder
 
 In the `4_bert_score` folder, we use the BERT Score to calculate the similarity between question bodies. Due to the time-consuming nature of this process, we generate a shortlist of candidates by averaging the `tree` and `graph` candidates. The BERT Score is then calculated for candidates with higher scores.
 
-#### 5. Union
+#### 2.5. Union
 
 We compute the average similarity scores of all candidates from the previous three phases (tree, graph, and BERT). This is done using two methods: intersections and ordering. In the first method, we find the intersection of the three candidate lists and select questions recommended by all similarity methods first, and then, other questions are selected based on their scores. In the second method, all questions are ordered and selected based on their similarity scores.
 
-#### 6. Task Difficulty
+#### 2.6. Task Difficulty
 
 Here, we compute the difficulty of tasks based on the reputation of users who have completed similar tasks. 
 
