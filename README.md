@@ -9,7 +9,7 @@ The code is organized sequentially, with folders numbered from 1 to 4. Each fold
 #### 0. Download Dataset
 
 We utilized the Stack Exchange dataset, which can be downloaded from [archive.org](https://archive.org/details/stackexchange). Extract each dataset to the corresponding folder in the `./data` directory. For example, the biology dataset should be extracted to `./data/biology`.
-
+In this repository, we changed the 'task' term to 'question' because we used the Stack Exchange dataset, where questions are referred to as tasks. So, in some cases, based on the need we used 'question' and 'task' instead of each other. 
 #### 1. Preparation
 
 To convert XML files to CSV, execute all Python scripts in the `1_preparation` folder. This includes the `Comments`, `Posts`, `Tags`, `User`, and `Worker` directories. Paths are relative, and all files will be stored in the `data` directory. Modify the directory names in the Python scripts for different datasets as needed.
@@ -43,5 +43,25 @@ We compute the average similarity scores of all candidates from the previous thr
 #### 2.6. Task Difficulty
 
 Here, we compute the difficulty of tasks based on the reputation of users who have completed similar tasks. 
+
+
+#### 3. Profiles
+In this directory, we split the dataset into training, testing, and validation sets. We also create profiles for both requesters and workers, as well as situation vectors, which are used as inputs for training, testing, and validating the model.
+
+###### 3.1. Split Data
+In the `1_split_data` folder, the Python code divides the dataset to test, train, and validate data 80%, 10%, and 10%, respectively. 
+
+###### 3.2. Req Profile
+In the folder `2_req_profile` there are two subfolders, by which the requesters' profiles including fairness, expertise, and reputation are generated.
+
+In the `fairness/abandoned_tasks_rate` directory, we first calculate the average number of upvotes for accepted answers to a requester's questions. Then, we determine the number of questions that have answers with more upvotes than the average but were not chosen as the accepted answer. This could be a possible indication of unfair behavior.
+
+In the `fairness/deviation_from_community` directory, we define the answers that were marked as accepted but had lower upvotes compared to other answers in a question. 
+
+In the `exp_rep` directory, the reputation and expertise of requesters are computed. Expertise means how many accomplished tasks in a specific domain each requester has. 
+
+###### 3.3. Worker Profile
+
+
 
 Continue....
