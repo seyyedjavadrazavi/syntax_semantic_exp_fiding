@@ -61,7 +61,8 @@ In the `fairness/deviation_from_community` directory, we define the answers that
 In the `exp_rep` directory, the reputation and expertise of requesters are computed. Expertise means how many accomplished tasks in a specific domain each requester has. 
 
 ###### 3.3. Worker Profile
+In this directory, the workers' profiles including expertise in domain and reputation are generated.
 
-
+###### 3.4. Create Situation Vector
 
 Continue....
