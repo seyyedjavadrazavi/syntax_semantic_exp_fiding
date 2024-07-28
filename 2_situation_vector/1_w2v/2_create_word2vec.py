@@ -33,7 +33,6 @@ model2.save("../../data/bioinformatics/word2vec_Skip_Gram_with_n.model")
 
 cnt = 1
 for tg in tags_name:
-    # tg = tg.lower()
     bag_of_word = []
     n_gram = []
 
@@ -48,28 +47,15 @@ for tg in tags_name:
             n_gram.append(copy.deepcopy(-1))
 
     with open('../../data/bioinformatics/w2v_CBOW.csv', 'a', newline='') as f_object:  
+        writer_object = writer(f_object)
         if cnt == 1:
-            cl_name = tags_name
-            
-            writer_object = writer(f_object)
-            writer_object.writerow(cl_name)
-            writer_object.writerow(bag_of_word)
-            f_object.close()
-        else:
-            writer_object = writer(f_object)
-            writer_object.writerow(bag_of_word)
-            f_object.close()            
+            writer_object.writerow(tags_name)
+
+        writer_object.writerow(bag_of_word)
 
     with open('../../data/bioinformatics/w2v_NGram.csv', 'a', newline='') as f_object:  
+        writer_object = writer(f_object)
         if cnt == 1:
-            cl_name = tags_name
-            
-            writer_object = writer(f_object)
-            writer_object.writerow(cl_name)
-            writer_object.writerow(n_gram)
-            f_object.close()
-            cnt += 1
-        else:
-            writer_object = writer(f_object)
-            writer_object.writerow(n_gram)
-            f_object.close()            
+            writer_object.writerow(tags_name)
+        writer_object.writerow(n_gram)
+        
