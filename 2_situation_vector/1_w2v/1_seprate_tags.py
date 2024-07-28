@@ -2,30 +2,28 @@ import pandas as pd
 import itertools
 from csv import writer
 
+# Load and preprocess the data
 posts = pd.read_csv(r'../../data/bioinformatics/bioinformatics_Posts.csv')
 posts['CreationDate'] = pd.to_datetime(posts['CreationDate'])
 posts = posts.loc[posts['CreationDate'] < '2019-06-01T00:00:00.000000000']
 
-p_tgs = posts[['Id','Tags']]
+post_tags = posts[['Id','Tags']]
 
 per_tgs = []
-cnt = 1
-
-for tg in p_tgs.iterrows():
-    if (str(tg[1]['Tags']) != 'nan'):
-        qu_tag = tg[1]['Tags']
-        qu_tag = qu_tag.split('|')
-        qu_tag.remove('')
-        qu_tag.remove('')
+for tg in post_tags.iterrows():
+    if pd.notna(tg):
+        tag_list = tg.split('|')
+        tag_list = [tag for tag in tag_list if tag]
       
-        tmp_tgs = list(itertools.permutations(qu_tag))
+        tag_permutations = list(itertools.permutations(tag_list))
 
-        crnt_per_tgs = [list(per) for per in tmp_tgs if per not in per_tgs]
+        crnt_per_tgs = [per_tgs.extend(list(per)) for per in tag_permutations if per not in per_tgs]
+        # Add post ID to each permutation
         [x.insert(0, tg[1]['Id']) for x in crnt_per_tgs]
 
+        # Write permutations to CSV
         with open('../../data/bioinformatics/bioinformatics_permutation_tags.csv', 'a', newline='') as f_object:  
             writer_object = writer(f_object)
-            for i in crnt_per_tgs:
-                writer_object.writerow(i)
-
-            f_object.close()
+            [writer_object.writerow(i) for i in crnt_per_tgs]
+            
+print('Done')
