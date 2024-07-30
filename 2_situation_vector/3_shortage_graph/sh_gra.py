@@ -7,7 +7,7 @@ from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import apriori
 import datetime
 
-posts = pd.read_xml(r'../../data/bioinformatics/Posts.xml')
+posts = pd.read_xml(r'../../data/biology/Posts.xml')
 posts['CreationDate'] = pd.to_datetime(posts['CreationDate'])
 posts = posts.loc[posts['CreationDate'] < datetime.datetime.strptime('2019-06-01T00:00:00.000000', '%Y-%m-%dT%H:%M:%S.%f')]
 
@@ -17,14 +17,14 @@ idis = questions['Id'].values.tolist()
 del posts
 del questions
 
-seman_tags = pd.read_csv(r'../../data/bioinformatics/w2v_CBOW.csv')
+seman_tags = pd.read_csv(r'../../data/biology/w2v_CBOW.csv')
 tg_names = seman_tags.columns.values.tolist()
 
-tag_obs_len1 = pd.read_csv(r'../../data/bioinformatics/bioinformatics_tags_observation_len1.csv')    
-tag_obs_len2 = pd.read_csv(r'../../data/bioinformatics/bioinformatics_tags_observation_len2.csv')
-tag_obs_len3 = pd.read_csv(r'../../data/bioinformatics/bioinformatics_tags_observation_len3.csv')
-tag_obs_len4 = pd.read_csv(r'../../data/bioinformatics/bioinformatics_tags_observation_len4.csv')
-tag_obs_len5 = pd.read_csv(r'../../data/bioinformatics/bioinformatics_tags_observation_len5.csv')
+tag_obs_len1 = pd.read_csv(r'../../data/biology/biology_tags_observation_len1.csv')    
+tag_obs_len2 = pd.read_csv(r'../../data/biology/biology_tags_observation_len2.csv')
+tag_obs_len3 = pd.read_csv(r'../../data/biology/biology_tags_observation_len3.csv')
+tag_obs_len4 = pd.read_csv(r'../../data/biology/biology_tags_observation_len4.csv')
+tag_obs_len5 = pd.read_csv(r'../../data/biology/biology_tags_observation_len5.csv')
     
 def remove_duplicates(input_tags):
     seen = {}
@@ -39,7 +39,7 @@ def remove_duplicates(input_tags):
 
 #################### Apiori Alg.
 tags = []
-with open('../../data/bioinformatics/bioinformatics_permutation_tags.csv', newline='') as csvfile:
+with open('../../data/biology/biology_permutation_tags.csv', newline='') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
     seen_tgs = []
     for row in spamreader:
@@ -59,6 +59,11 @@ frequent_itemsets['length'] = frequent_itemsets['itemsets'].apply(lambda x: len(
 ll = 0
 # ind = idis.index(42)
 # idis = idis[ind:]
+tmp_ques_1 = pd.DataFrame()
+tmp_ques_2 = pd.DataFrame()
+tmp_ques_3 = pd.DataFrame()
+tmp_ques_4 = pd.DataFrame()
+tmp_ques_5 = pd.DataFrame()
 for qu in idis:
     # start_1 = timeit.default_timer()
     print(qu)
@@ -217,47 +222,47 @@ for qu in idis:
             if i in org_tgs:
                 if len(df_qu_bag_1) > 0:
                     if len(tmp_ques_1) > 0:
-                        tmp_ques_1['score'] = math.pow(abs(tmp_ques_1['score'].values[0]) * 1, 0.5)
+                        tmp_ques_1['score'] = math.pow(abs(float(tmp_ques_1['score'].values[0])) * 1, 0.5)
                         tmp_ques.extend(tmp_ques_1.values.tolist())
                 if len(df_qu_bag_2) > 0:
                     if len(tmp_ques_2) > 0:
-                        tmp_ques_2['score'] = math.pow(abs(tmp_ques_2['score'].values[0]) * 1, 0.5)
+                        tmp_ques_2['score'] = math.pow(abs(float(tmp_ques_2['score'].values[0])) * 1, 0.5)
                         tmp_ques.extend(tmp_ques_2.values.tolist())
                 if len(df_qu_bag_3) > 0:
                     if len(tmp_ques_3) > 0:
-                        tmp_ques_3['score'] = math.pow(abs(tmp_ques_3['score'].values[0]) * 1, 0.5)
+                        tmp_ques_3['score'] = math.pow(abs(float(tmp_ques_3['score'].values[0])) * 1, 0.5)
                         tmp_ques.extend(tmp_ques_3.values.tolist())
                 if len(df_qu_bag_4) > 0:
                     if len(tmp_ques_4) > 0:
-                        tmp_ques_4['score'] = math.pow(abs(tmp_ques_4['score'].values[0]) * 1, 0.5)
+                        tmp_ques_4['score'] = math.pow(abs(float(tmp_ques_4['score'].values[0])) * 1, 0.5)
                         tmp_ques.extend(tmp_ques_4.values.tolist())
                 if len(df_qu_bag_5) > 0:
                     if len(tmp_ques_5) > 0:
-                        tmp_ques_5['score'] = math.pow(abs(tmp_ques_5['score'].values[0]) * 1, 0.5)
+                        tmp_ques_5['score'] = math.pow(abs(float(tmp_ques_5['score'].values[0])) * 1, 0.5)
                         tmp_ques.extend(tmp_ques_5.values.tolist())
 
             else:
-                scr = col[cnt]
+                scr = float(col[cnt])
                 # scr = col.loc[col['sim_tag'] == i, 'similarity'].values[0]
                 if len(df_qu_bag_1) > 0:
                     if len(tmp_ques_1) > 0:
-                        tmp_ques_1['score'] = math.pow(abs(tmp_ques_1['score'].values[0] * scr), 0.5)
+                        tmp_ques_1['score'] = math.pow(abs(float(tmp_ques_1['score'].values[0]) * scr), 0.5)
                         tmp_ques.extend(tmp_ques_1.values.tolist())
                 if len(df_qu_bag_2) > 0:
                     if len(tmp_ques_2) > 0:
-                        tmp_ques_2['score'] = math.pow(abs(tmp_ques_2['score'].values[0] * scr), 0.5)
+                        tmp_ques_2['score'] = math.pow(abs(float(tmp_ques_2['score'].values[0]) * scr), 0.5)
                         tmp_ques.extend(tmp_ques_2.values.tolist())
                 if len(df_qu_bag_3) > 0:
                     if len(tmp_ques_3) > 0:
-                        tmp_ques_3['score'] = math.pow(abs(tmp_ques_3['score'].values[0] * scr), 0.5)
+                        tmp_ques_3['score'] = math.pow(abs(float(tmp_ques_3['score'].values[0]) * scr), 0.5)
                         tmp_ques.extend(tmp_ques_3.values.tolist())
                 if len(df_qu_bag_4) > 0:
                     if len(tmp_ques_4) > 0:
-                        tmp_ques_4['score'] = math.pow(abs(tmp_ques_4['score'].values[0] * scr), 0.5)
+                        tmp_ques_4['score'] = math.pow(abs(float(tmp_ques_4['score'].values[0]) * scr), 0.5)
                         tmp_ques.extend(tmp_ques_4.values.tolist())
                 if len(df_qu_bag_5) > 0:
                     if len(tmp_ques_5) > 0:
-                        tmp_ques_5['score'] = math.pow(abs(tmp_ques_5['score'].values[0] * scr), 0.5)
+                        tmp_ques_5['score'] = math.pow(abs(float(tmp_ques_5['score'].values[0]) * scr), 0.5)
                         tmp_ques.extend(tmp_ques_5.values.tolist())
 
         tmp_ques = remove_duplicates(tmp_ques)
@@ -310,13 +315,13 @@ for qu in idis:
 
         subscription = []
         if ll == 0:
-            with open('../../data/bioinformatics/bioinformatics_sem_sim_questions.csv', 'a', newline='') as f_object:  
+            with open('../../data/biology/biology_sem_sim_questions.csv', 'a', newline='') as f_object:  
                 writer_object = writer(f_object)
                 writer_object.writerow(['original', 'similar', 'similarity'])
                 f_object.close()
                 ll = 1
 
-        with open('../../data/bioinformatics/bioinformatics_sem_sim_questions.csv', 'a', newline='') as f_object:  
+        with open('../../data/biology/biology_sem_sim_questions.csv', 'a', newline='') as f_object:  
             for i in sim_qu:
                 # i.insert(0, qu)
                 writer_object = writer(f_object)
