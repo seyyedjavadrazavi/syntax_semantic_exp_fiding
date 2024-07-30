@@ -32,6 +32,14 @@ for qu_id in questions:
     b_s_itms = b_s.loc[b_s['qu_id'] == qu_id]
     b_s_itms = b_s_itms.drop_duplicates(subset=['qu_id', 'sim_ques_id'])
 
+    ind = qu_fim.loc[qu_fim['sim_ques_id'] == qu_id].index.values
+    qu_fim.drop(ind , inplace=True)
+
+    ind = qu_w2v.loc[qu_w2v['sim_ques_id'] == qu_id].index.values
+    qu_w2v.drop(ind , inplace=True)
+
+    ind = b_s_itms.loc[b_s_itms['sim_ques_id'] == qu_id].index.values
+    b_s_itms.drop(ind , inplace=True)
 ##################### Subscription
     commn_itms = list(set(qu_fim.sim_ques_id) & set(qu_w2v.sim_ques_id) & set(b_s_itms.sim_ques_id))
 

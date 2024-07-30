@@ -7,7 +7,7 @@ from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import apriori
 import datetime
 
-posts = pd.read_xml(r'../../data/biology/Posts.xml')
+posts = pd.read_xml(r'../../data/bioinformatics/Posts.xml')
 posts['CreationDate'] = pd.to_datetime(posts['CreationDate'])
 posts = posts.loc[posts['CreationDate'] < datetime.datetime.strptime('2019-06-01T00:00:00.000000', '%Y-%m-%dT%H:%M:%S.%f')]
 
@@ -17,14 +17,14 @@ idis = questions['Id'].values.tolist()
 del posts
 del questions
 
-seman_tags = pd.read_csv(r'../../data/biology/w2v_CBOW.csv')
+seman_tags = pd.read_csv(r'../../data/bioinformatics/w2v_CBOW.csv')
 tg_names = seman_tags.columns.values.tolist()
 
-tag_obs_len1 = pd.read_csv(r'../../data/biology/biology_tags_observation_len1.csv')    
-tag_obs_len2 = pd.read_csv(r'../../data/biology/biology_tags_observation_len2.csv')
-tag_obs_len3 = pd.read_csv(r'../../data/biology/biology_tags_observation_len3.csv')
-tag_obs_len4 = pd.read_csv(r'../../data/biology/biology_tags_observation_len4.csv')
-tag_obs_len5 = pd.read_csv(r'../../data/biology/biology_tags_observation_len5.csv')
+tag_obs_len1 = pd.read_csv(r'../../data/bioinformatics/bioinformatics_tags_observation_len1.csv')    
+tag_obs_len2 = pd.read_csv(r'../../data/bioinformatics/bioinformatics_tags_observation_len2.csv')
+tag_obs_len3 = pd.read_csv(r'../../data/bioinformatics/bioinformatics_tags_observation_len3.csv')
+tag_obs_len4 = pd.read_csv(r'../../data/bioinformatics/bioinformatics_tags_observation_len4.csv')
+tag_obs_len5 = pd.read_csv(r'../../data/bioinformatics/bioinformatics_tags_observation_len5.csv')
     
 def remove_duplicates(input_tags):
     seen = {}
@@ -39,7 +39,7 @@ def remove_duplicates(input_tags):
 
 #################### Apiori Alg.
 tags = []
-with open('../../data/biology/biology_permutation_tags.csv', newline='') as csvfile:
+with open('../../data/bioinformatics/bioinformatics_permutation_tags.csv', newline='') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
     seen_tgs = []
     for row in spamreader:
@@ -315,13 +315,13 @@ for qu in idis:
 
         subscription = []
         if ll == 0:
-            with open('../../data/biology/biology_sem_sim_questions.csv', 'a', newline='') as f_object:  
+            with open('../../data/bioinformatics/bioinformatics_sem_sim_questions.csv', 'a', newline='') as f_object:  
                 writer_object = writer(f_object)
                 writer_object.writerow(['original', 'similar', 'similarity'])
                 f_object.close()
                 ll = 1
 
-        with open('../../data/biology/biology_sem_sim_questions.csv', 'a', newline='') as f_object:  
+        with open('../../data/bioinformatics/bioinformatics_sem_sim_questions.csv', 'a', newline='') as f_object:  
             for i in sim_qu:
                 # i.insert(0, qu)
                 writer_object = writer(f_object)
